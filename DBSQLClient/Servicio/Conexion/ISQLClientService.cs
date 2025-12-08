@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace DBSQLClient.Data.Servicio
+namespace DBSQLClient.Servicio.Conexion
 {
     public interface ISQLClientService
     {

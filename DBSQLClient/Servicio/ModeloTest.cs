@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Test.Data
+namespace DBSQLClient.Models
 {
     public class Table1
     {

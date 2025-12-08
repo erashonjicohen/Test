@@ -1,10 +1,9 @@
-using DBSQLClient.Data.Servicio;
 using Microsoft.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Reflection.PortableExecutable;
 
-namespace Test.Data.Servicio
+namespace DBSQLClient.Servicio.Conexion
 {
     /// <resumen>
     /// Proporciona métodos para ejecutar consultas SQL y procedimientos almacenados de forma asíncrona en una base de datos SQL Server,

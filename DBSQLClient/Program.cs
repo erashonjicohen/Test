@@ -1,10 +1,10 @@
 ﻿
 
+using DBSQLClient.Servicio.Conexion;
 using System.Data;
 using System.Diagnostics;
 using System.Text.Json;
-using Test.Data;
-using Test.Data.Infraestructura;
+
 
 
 var db = new SqlClientService("Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Application Name=\"SQL Server Management Studio\";Command Timeout=5000");
