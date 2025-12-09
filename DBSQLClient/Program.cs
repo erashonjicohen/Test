@@ -13,7 +13,15 @@ Task.Run(async () =>
 {
     Stopwatch stopWatch0 = new Stopwatch();
     stopWatch0.Start();
-    var Result0 = await db.QueryAsyncAsDataTable("select @@version as Version");
+    try
+    {
+        var Result0 = await db.QueryAsyncAsDataTable("select @@version as Version");
+
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+    }
 
     stopWatch0.Stop();
     TimeSpan ts0 = stopWatch0.Elapsed;
