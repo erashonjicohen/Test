@@ -3,6 +3,7 @@
 using DBSQLClient.Models;
 using DBSQLClient.Servicio.Conexion;
 using System.Diagnostics;
+using System.Text.Json;
 
 
 var db = new SqlClientService("Data Source=(localdb)\\MSSQLLocalDB;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Application Name=\"SQL Server Management Studio\";Command Timeout=5000");
@@ -55,8 +56,20 @@ Task.Run(async () =>
     {
         var UserList = await db.ExecuteAsync("sp_Get_User");
 
+        var json =  UserList.ToJson<UserModel>(options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase } );
+
+        Console.WriteLine(json);
+        // Convertir a DataSet
+        UserList.AsDataSet();
+
+        // Filtrar con LINQ
+
+        var userEnuModel =  UserList.ToList<UserModel>().Where( x => x.Id == 1 );
+        
+        
         // Convertir a objetos tipados
         var user = UserList.FirstOrDefault<UserModel>();
+
 
         Console.WriteLine($"ID: {user?.Id}, Nombre: {user?.Nombre}, Correo: {user?.Correo}");   
     }
