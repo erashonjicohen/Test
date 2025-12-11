@@ -76,13 +76,13 @@ namespace DBSQLClient.Servicio.Helpers
 
             // Agrupar hijos por padre
             var childGroups = children.GroupBy(c => childFkProp?.GetValue(c))
-                                     .ToDictionary(g => g.Key, g => g.ToList());
+                                     .ToDictionary(g => g.Key!, g => g.ToList()) ;
 
             // Asignar hijos a cada padre
             foreach (var parent in parents)
             {
                 var parentKey = parentKeyProp?.GetValue(parent);
-                if (childGroups.TryGetValue(parentKey, out var childList))
+                if (childGroups.TryGetValue(parentKey!, out var childList))
                 {
                     childProperty.SetValue(parent, childList);
                 }
@@ -152,7 +152,7 @@ namespace DBSQLClient.Servicio.Helpers
         /// <example>
         /// var user = result.ToSingleWithChildren&lt;UserModel, UserRol&gt;("Roles");
         /// </example>
-        public static TParent ToSingleWithChildren<TParent, TChild>(
+        public static TParent OneToMany<TParent, TChild>(
             this SqlQueryResult result,
             string childPropertyName)
             where TParent : new()
@@ -164,7 +164,7 @@ namespace DBSQLClient.Servicio.Helpers
         /// <summary>
         /// Mapea el resultado a múltiples objetos con relaciones uno-a-muchos.
         /// </summary>
-        public static List<TParent> ToListWithChildren<TParent, TChild>(
+        public static List<TParent> ManyToMany<TParent, TChild>(
             this SqlQueryResult result,
             string childPropertyName,
             string parentKeyProperty = "Id",
@@ -178,5 +178,6 @@ namespace DBSQLClient.Servicio.Helpers
                 parentKeyProperty,
                 childForeignKeyProperty);
         }
+
     }
 }

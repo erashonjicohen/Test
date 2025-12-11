@@ -1,10 +1,10 @@
-﻿using DBSQLClient.Servicio.Conexion;
+﻿using DBSQLClient.Models;
+using DBSQLClient.Servicio.Conexion;
+using DBSQLClient.Servicio.Helpers;
+using System.Data;
 using System.Diagnostics;
 using System.Text.Json;
-using System.Data;
-
-using DBSQLClient.Servicio.Helpers;
-using DBSQLClient.Models;
+using System.Text.Json.Serialization;
 
 
 
@@ -44,9 +44,17 @@ namespace DBSQLClient
                     // Console.WriteLine($"{spExecute.AsDataSet()}");
 
                     var result = await db.ExecuteAsync("sp_Get_User", parametros);
-                    var user = result.ToSingleWithChildren<UserModel, UserRol>("Roles");
+                    JsonSerializerOptions _options = new()
+                    {
+                        WriteIndented = false,
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                        ReferenceHandler = ReferenceHandler.IgnoreCycles
+                    };
 
 
+                    var user = result.OneToMany<UserModel, UserRoles>("Roles").ToJsonString(_options);
+
+                    
                     Console.WriteLine($"{user}");
                     //Console.WriteLine($"Usuario: {user.Nombre}");
                     //foreach (var rol in user.Roles)

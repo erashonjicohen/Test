@@ -37,7 +37,7 @@ namespace DBSQLClient.Models
 
         END     
      */
-    public class UserRol
+    public class UserRoles
     {
         public int RolId { get; set; }
         public string? Nombre { get; set; }
@@ -49,7 +49,7 @@ namespace DBSQLClient.Models
         public int Id { get; set; }
         public string? Nombre { get; set; }
         public string? Correo { get; set; }
-        public List<UserRol>? Roles { get; set; }
+        public List<UserRoles>? Roles { get; set; }
     }
 
 
